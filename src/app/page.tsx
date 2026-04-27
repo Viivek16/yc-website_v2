@@ -1,0 +1,31 @@
+import { Hero }             from '@/components/hero/Hero';
+import { StatRail }         from '@/components/home/StatRail';
+import { StandardOfCare }   from '@/components/home/StandardOfCare';
+import { HomeServices }     from '@/components/home/HomeServices';
+import { OrderBookExhibit } from '@/components/home/OrderBookExhibit';
+import { HomeEcosystem }    from '@/components/home/HomeEcosystem';
+import { HomePillars }      from '@/components/home/HomePillars';
+import { Captain }          from '@/components/home/Captain';
+import { PreFooter }        from '@/components/PreFooter';
+
+export default function HomePage() {
+  return (
+    <>
+      <Hero />
+      <StatRail />
+      <StandardOfCare />
+      <HomeServices />
+      <OrderBookExhibit />
+      <HomeEcosystem />
+      <HomePillars />
+      <Captain />
+      <PreFooter
+        headline='Read first,<br /><em>Engage second.</em>'
+        subhead="A short note about who you are, what book you run, and what you need. We read every one."
+        primary="Schedule consultation"
+        ghost="About the firm"
+        ghostTo="/about"
+      />
+    </>
+  );
+}

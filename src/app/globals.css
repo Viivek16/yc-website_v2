@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   YELLOW CAPITAL — Core Tokens
+   ============================================================ */
+
+:root {
+  /* Dark surfaces */
+  --ink:         #0a0a0a;
+  --ink-2:       #141413;
+  --ink-3:       #1c1b19;
+  --black:       #000000;
+
+  /* Light surfaces */
+  --surface:     #f4f3ef;
+  --surface-2:   #e8e6df;
+  --white:       #ffffff;
+
+  /* Dividers */
+  --line:        #24231f;
+  --line-soft:   #2e2d28;
+  --line-lite:   #dcd9d0;
+
+  /* Text on light */
+  --text:        #0a0a0a;
+  --text-2:      #3b3636;
+  --muted:       #524e48;
+  --mute-2:      #6a6760;
+
+  /* Text on dark */
+  --on-dark:     #e9e6df;
+  --on-dark-2:   #a8a49a;
+  --on-dark-3:   #6e6a61;
+
+  /* Accents */
+  --accent:      #fdda16;
+  --cta:         #ffb100;
+
+  /* Status */
+  --up:          #4ade80;
+  --down:        #ef4444;
+
+  /* Radii — capped at 4px */
+  --r-sm:   4px;
+  --r-md:   4px;
+  --r-lg:   4px;
+
+  /* Shadows */
+  --sh-xs: 0 1px 2px 0 rgba(0,0,0,0.12);
+  --sh-sm: 0 2px 8px -2px rgba(0,0,0,0.18);
+  --sh-md: 0 8px 24px -6px rgba(0,0,0,0.28);
+  --sh-lg: 0 20px 48px -12px rgba(0,0,0,0.42);
+  --sh-glow-accent: 0 0 32px 0 rgba(253,218,22,0.18);
+  --sh-glow-cta:    0 0 36px 0 rgba(255,177,0,0.22);
+  --sh-inset-hair:  inset 0 1px 0 0 rgba(255,255,255,0.04);
+
+  /* Motion */
+  --ease-reveal:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-data:    cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-hover:   cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-hover:    200ms;
+  --dur-reveal:   600ms;
+  --dur-page:     400ms;
+}
+
+/* ============================================================
+   Base Reset
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--on-dark);
+  background: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; }
+
+::selection { background: rgba(253,218,22,0.3); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent) !important;
+  outline: none;
+}
+
+/* ============================================================
+   Semantic type classes
+   ============================================================ */
+.display-text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.018em;
+  line-height: 1.02;
+}
+
+.h1-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(56px, 7vw, 96px);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(48px, 6vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 72px);
+  letter-spacing: -0.018em;
+  line-height: 1.06;
+}
+.h2 em { font-style: italic; }
+em { font-style: italic; }
+
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.body-light {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.body-ui  { font-family: var(--font-ui); font-weight: 400; font-size: 14px; }
+.caption  { font-family: var(--font-ui); font-weight: 400; font-size: 13px; color: var(--muted); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--on-dark-3);
+}
+
+.mono-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(44px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.feature-30 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(120px, 14vw, 220px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* ============================================================
+   Rules & hairlines
+   ============================================================ */
+.rule        { height: 1px; background: var(--line-lite); border: 0; }
+.rule-soft   { height: 1px; background: var(--line-soft); border: 0; }
+.rule-accent { height: 1px; background: var(--accent);    border: 0; }
+
+/* ============================================================
+   Utility backgrounds
+   ============================================================ */
+.bg-ink      { background: var(--ink);      color: var(--on-dark); }
+.bg-ink-2    { background: var(--ink-2);    color: var(--on-dark); }
+.bg-surface  { background: var(--surface);  color: var(--text); }
+.bg-surface-2{ background: var(--surface-2);color: var(--text); }
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes marquee   { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes pulse     { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.45; } }
+@keyframes pulseGlow { 0%,100% { opacity: 0.85; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.04); } }
+@keyframes dropIn   { from { opacity: 0; transform: translateY(-8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes slideIn  { from { opacity: 0; transform: translateY(20px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+@keyframes fadeIn   { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================
+   Ledger row hover (can't be done inline)
+   ============================================================ */
+.ledger-row:hover { background: rgba(28,27,25,0.6) !important; }
+.pillar:hover {
+  background: rgba(28,27,25,0.7) !important;
+  box-shadow: var(--sh-md) !important;
+}
