@@ -202,23 +202,9 @@ export default function ContactPage() {
             </GlassCard>
 
             <GlassCard style={{ padding: 26 }}>
-              <Eyebrow>03 · Desk hours</Eyebrow>
-              <div style={{ marginTop: 14 }}>
-                {([['Singapore', 'Open'], ['Berlin', 'Open'], ['New York', 'Open'], ['Incident hotline', '+1 (406) 555-0214']] as [string, string][]).map(([c, s], i, a) => (
-                  <div key={c} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: i < a.length - 1 ? '1px solid var(--line-soft)' : 0, fontFamily: 'var(--font-ui)', fontSize: 13.5 }}>
-                    <span style={{ color: 'var(--on-dark)' }}>{c}</span>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: s === 'Open' ? 'var(--accent)' : 'var(--on-dark-2)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                      {s === 'Open' && <LiveDot size={5} />}{s}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </GlassCard>
-
-            <GlassCard style={{ padding: 26 }}>
-              <Eyebrow>04 · Offices</Eyebrow>
+              <Eyebrow>03 · Offices</Eyebrow>
               <div style={{ marginTop: 16, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-                {([['Montana', 'HQ'], ['Singapore', 'APAC'], ['Berlin', 'EU'], ['New York', 'NA']] as [string, string][]).map(([c, r]) => (
+                {([['Dubai', 'HQ'], ['Chiang Mai', 'APAC'], ['Andorra', 'EU'], ['Buenos Aires', 'US']] as [string, string][]).map(([c, r]) => (
                   <div key={c} style={{ padding: '14px 0', borderTop: '1px solid var(--line-soft)' }}>
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--on-dark-3)' }}>{r}</div>
                     <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, marginTop: 4, color: 'var(--on-dark)' }}>{c}</div>

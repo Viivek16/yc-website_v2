@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const timeline = [
   { y: '2018', tag: 'Founded', b: 'Desk stood up. Yellow Capital incorporated as a Montana general partnership.' },
-  { y: '2019', tag: '24/7 desk', b: 'Follow-the-sun coverage. Team built out in Singapore and Berlin.' },
+  { y: '2019', tag: '24/7 desk', b: 'Follow-the-sun coverage.' },
   { y: '2023', tag: 'Yellow Group', b: 'Five companies, one governance. Capital, Yellow.pro, Yellow.com, Yellow.org, and Openware consolidated under Yellow Group.' },
   { y: '2024', tag: 'Chainalysis', b: 'KYT end-to-end. Every wallet that interacts with our surfaces is pre-screened.' },
   { y: '2026', tag: 'Now', b: '34 people, 9 cities. 120+ lifetime mandates, a dozen active MM engagements, SOC 2 in progress.' },

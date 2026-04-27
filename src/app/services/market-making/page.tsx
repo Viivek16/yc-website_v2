@@ -74,7 +74,7 @@ export default function MarketMakingPage() {
       ]} />
 
       <PreFooter
-        headline='Ready to see a <em>weekly ledger?</em>'
+        headline='Ready to see a<br /><em>weekly ledger?</em>'
         subhead="Request a sample from the most recent publication — redacted where required, complete everywhere else."
         primary="Request a sample"
         ghost="All services"

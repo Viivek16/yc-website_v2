@@ -117,19 +117,6 @@ export function CoverageGlobe() {
         </div>
       )}
 
-      <div style={{ marginTop: 22, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-        {[
-          ['Entity',      'Yellow Capital LP'],
-          ['Domicile',    'Montana, USA'],
-          ['Established', '2018'],
-          ['Compliance',  'Chainalysis · pre-trade'],
-        ].map(([k, v]) => (
-          <div key={k} style={{ border: '1px solid var(--line-soft)', padding: '12px 14px', borderRadius: 2, background: 'rgba(20,19,19,0.4)' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--on-dark-3)' }}>{k}</div>
-            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, color: 'var(--on-dark)', marginTop: 4 }}>{v}</div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

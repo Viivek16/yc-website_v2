@@ -2,7 +2,7 @@ import { Section, Eyebrow, Reveal } from '@/components/shared';
 import { OrderBook } from './OrderBook';
 
 const STATS = [
-  ['Median spread', '4.2 bps'],
+  ['Median Spread', '1.5%'],
   ['Quotes / 24h',  '1.42M'],
   ['Active pairs',  '142'],
   ['Uptime',        '99.97%'],
