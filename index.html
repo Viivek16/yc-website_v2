@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yellow Capital — Institutional liquidity, treasury, and venture</title>
+<meta name="ext-resource-dependency" content="assets/logo-dark-bg.png" />
+<meta name="ext-resource-dependency" content="assets/team/alexis.jpg" />
+<meta name="ext-resource-dependency" content="assets/team/diego.png" />
+<meta name="ext-resource-dependency" content="assets/team/bakhtiyar.png" />
+<meta name="ext-resource-dependency" content="assets/team/nem.png" />
+<meta name="ext-resource-dependency" content="assets/team/viivek.jpg" />
+<meta name="ext-resource-dependency" content="assets/team/pedro.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a; --ink-2: #141413; --ink-3: #1c1b19;
+    --surface: #f4f3ef; --surface-2: #e8e6df;
+    --line: #24231f; --line-soft: #2e2d28; --line-lite: #dcd9d0;
+    --text: #0a0a0a; --text-2: #3b3636;
+    --muted: #524e48; --mute-2: #6a6760;
+    --on-dark: #e9e6df; --on-dark-2: #a8a49a; --on-dark-3: #6e6a61;
+    --accent: #fdda16; --cta: #ffb100;
+    --font-display: 'Playfair Display', serif;
+    --font-ui: 'Inter Tight', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --sh-xs: 0 1px 2px 0 rgba(0,0,0,0.12);
+    --sh-sm: 0 2px 8px -2px rgba(0,0,0,0.18);
+    --sh-md: 0 8px 24px -6px rgba(0,0,0,0.28);
+    --sh-lg: 0 20px 48px -12px rgba(0,0,0,0.42);
+    --sh-glow-accent: 0 0 32px 0 rgba(253,218,22,0.18);
+    --sh-glow-cta: 0 0 36px 0 rgba(255,177,0,0.22);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ink); color: var(--on-dark); font-family: var(--font-ui); font-weight: 300; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 400; }
+  .h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; }
+  .h2 em { font-style: italic; }
+  em { font-style: italic; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.45; } }
+  @keyframes pulseGlow { 0%,100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); } }
+  @keyframes dropIn { from { opacity: 0; transform: translateY(-8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  ::selection { background: rgba(253,218,22,0.3); color: #fff; }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent) !important; }
+
+  #tweaks-panel {
+    position: fixed; right: 20px; bottom: 20px; z-index: 200;
+    background: rgba(10,10,10,0.88); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 4;
+    padding: 18px 20px; min-width: 260px;
+    font-family: var(--font-ui); color: var(--on-dark); font-size: 13;
+    box-shadow: var(--sh-lg);
+  }
+  #tweaks-panel h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-dark-3); margin: 0 0 14px; font-weight: 400; }
+  #tweaks-panel label { display: block; margin-bottom: 10px; }
+  #tweaks-panel label span { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-dark-3); margin-bottom: 6px; font-family: var(--font-mono); }
+  #tweaks-panel select, #tweaks-panel input {
+    width: 100%; padding: 8px 10px; background: rgba(20,19,19,0.7);
+    border: 1px solid rgba(255,255,255,0.12); color: var(--on-dark);
+    border-radius: 2; font-family: var(--font-ui); font-size: 13;
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#141413">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#141413"/>
+    <circle cx="600" cy="400" r="160" fill="none" stroke="#FDDA16" stroke-width="2" opacity="0.35"/>
+    <circle cx="600" cy="400" r="90" fill="#FDDA16"/>
+    <text x="600" y="620" text-anchor="middle" font-family="Georgia, serif" font-size="64" fill="#E9E6DF" letter-spacing="-2">Yellow Capital</text>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="src/shared.jsx"></script>
+<script type="text/babel" src="src/nav.jsx"></script>
+<script type="text/babel" src="src/footer.jsx"></script>
+<script type="text/babel" src="src/hero.jsx"></script>
+<script type="text/babel" src="src/home.jsx"></script>
+<script type="text/babel" src="src/services.jsx"></script>
+<script type="text/babel" src="src/pages.jsx"></script>
+
+<script type="text/babel">
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#fdda16",
+  "ctaColor": "#ffb100",
+  "heroEmphasis": "italic-accent",
+  "startRoute": "/"
+}/*EDITMODE-END*/;
+
+const App = () => {
+  const [route, setRoute] = React.useState(() => localStorage.getItem('yc_route') || TWEAKS.startRoute || '/');
+  const [scrolled, setScrolled] = React.useState(false);
+  const [tweaksOn, setTweaksOn] = React.useState(false);
+  const [tweaks, setTweaks] = React.useState(TWEAKS);
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--accent', tweaks.accentColor);
+    document.documentElement.style.setProperty('--cta', tweaks.ctaColor);
+  }, [tweaks]);
+
+  const go = (p) => {
+    setRoute(p); localStorage.setItem('yc_route', p);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+  window.__go = go;
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Tweaks edit-mode protocol
+  React.useEffect(() => {
+    const handler = (e) => {
+      if (!e.data) return;
+      if (e.data.type === '__activate_edit_mode') setTweaksOn(true);
+      if (e.data.type === '__deactivate_edit_mode') setTweaksOn(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  const updateTweak = (k, v) => {
+    const next = { ...tweaks, [k]: v };
+    setTweaks(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*');
+  };
+
+  // Route → ticker items + label
+  const tickers = {
+    '/': ['Q1 2026 Transparency Report · Published', 'Montana GP · Active', 'Chainalysis · Integrated', 'Desk status · Open', 'Pairs live · 142', 'Exchanges · 11', '24h quote updates · 1.42M', 'Compliance · Clean'],
+    '/services/market-making': ['Market Making · 24/7 · 11 venues', '142 pairs live', 'Weekly transparency', 'Symmetric spread', 'Chainalysis · Pre-trade'],
+    '/services/treasury-management': ['Treasury · 30% USDT payback minimum', 'Passive execution', 'On-demand liquidity', 'Verifiable transparency', 'Chainalysis · Integrated'],
+    '/services/programmatic-sales': ['Programmatic Sales · Discreet', 'Algorithmic', 'Market-neutral', 'No impact', 'Chainalysis · Pre-trade'],
+    '/services/venture-investment': ['Venture · Strategic capital', 'Advisory', 'Yellow Group channels', 'By invitation'],
+    '/ecosystem': ['Yellow Group · 5 companies', 'Yellow Capital · Liquidity', 'Yellow.pro · Listing', 'Yellow.com · Editorial', 'Yellow.org · Research', 'Openware · Infrastructure'],
+    '/about': ['About · Montana GP · Est. 2018', 'Team · 34', 'Cities · 9', 'Chainalysis · 2024', 'SOC 2 · In progress'],
+    '/contact': ['Response · 2 business days', 'Desk · Open 24/7', 'Incident line · +1 (406) 555-0214', 'Counterparty intake · Open'],
+  };
+  const tItems = tickers[route] || tickers['/'];
+
+  let screen;
+  switch (route) {
+    case '/': screen = <HomePage go={go} />; break;
+    case '/services/market-making': screen = <MarketMakingPage go={go} />; break;
+    case '/services/treasury-management': screen = <TreasuryPage go={go} />; break;
+    case '/services/programmatic-sales': screen = <ProgrammaticPage go={go} />; break;
+    case '/services/venture-investment': screen = <VenturePage go={go} />; break;
+    case '/ecosystem': screen = <EcosystemPage go={go} />; break;
+    case '/about': screen = <AboutPage go={go} />; break;
+    case '/contact': screen = <ContactPage go={go} />; break;
+    case '/insights': screen = <InsightsPage />; break;
+    case '/careers': screen = <CareersPage />; break;
+    case '/terms': screen = <LegalPage title="Terms" />; break;
+    case '/privacy': screen = <LegalPage title="Privacy" />; break;
+    case '/disclosures': screen = <LegalPage title="Disclosures" />; break;
+    default: screen = <HomePage go={go} />;
+  }
+
+  const labelMap = {
+    '/': '01 Home', '/services/market-making': '02 Market Making',
+    '/services/treasury-management': '03 Treasury', '/services/programmatic-sales': '04 Programmatic',
+    '/services/venture-investment': '05 Venture', '/ecosystem': '06 Ecosystem',
+    '/about': '07 About', '/contact': '08 Contact',
+  };
+
+  return (
+    <div data-screen-label={labelMap[route] || route} key={route} style={{ animation: 'fadeIn 400ms cubic-bezier(0.16,1,0.3,1)' }}>
+      <Nav scrolled={scrolled} route={route} go={go} />
+      <Ticker items={tItems} />
+      <main>{screen}</main>
+      <Footer go={go} />
+
+      {tweaksOn && (
+        <div id="tweaks-panel">
+          <h4>Tweaks</h4>
+          <label><span>Accent color</span>
+            <input type="color" value={tweaks.accentColor} onChange={e => updateTweak('accentColor', e.target.value)} />
+          </label>
+          <label><span>CTA color</span>
+            <input type="color" value={tweaks.ctaColor} onChange={e => updateTweak('ctaColor', e.target.value)} />
+          </label>
+          <label><span>Start route</span>
+            <select value={tweaks.startRoute} onChange={e => updateTweak('startRoute', e.target.value)}>
+              {Object.entries(labelMap).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+            </select>
+          </label>
+        </div>
+      )}
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
