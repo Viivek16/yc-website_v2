@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ServiceHero }  from '@/components/services/ServiceHero';
 import { FeatureCards } from '@/components/services/FeatureCards';
 import { ServiceFAQ }   from '@/components/services/ServiceFAQ';
@@ -29,18 +30,18 @@ export default function TreasuryPage() {
       </Section>
 
       {/* 30% showcase */}
-      <section style={{ background: 'var(--ink)', color: 'var(--on-dark)', padding: '140px 40px', position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--line-soft)' }}>
-        <div style={{ position: 'absolute', left: '50%', top: '50%', width: 900, height: 900, transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(253,218,22,0.26), transparent 60%)', filter: 'blur(40px)', pointerEvents: 'none', animation: 'pulseGlow 5s ease-in-out infinite' }} />
-        <div style={{ maxWidth: 1360, margin: '0 auto', position: 'relative', textAlign: 'center' }}>
+      <section style={{ background: 'var(--ink)', color: 'var(--on-dark)', padding: '100px 40px', position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--line-soft)' }}>
+        <div style={{ position: 'absolute', left: '50%', top: '50%', width: 600, height: 600, transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(253,218,22,0.18), transparent 60%)', filter: 'blur(40px)', pointerEvents: 'none', animation: 'pulseGlow 5s ease-in-out infinite' }} />
+        <div style={{ maxWidth: 860, margin: '0 auto', position: 'relative', textAlign: 'center' }}>
           <Eyebrow accentRule>02 · The Yellow model</Eyebrow>
-          <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(42px, 5vw, 72px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)' }}>We guarantee a</span>
-            <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(180px, 24vw, 340px)', letterSpacing: '-0.04em', lineHeight: 0.95, color: 'var(--accent)', filter: 'drop-shadow(0 0 60px rgba(253,218,22,0.45))', animation: 'pulseGlow 3.5s ease-in-out infinite' }}>
+          <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(28px, 3.5vw, 48px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)' }}>We guarantee a</span>
+            <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(100px, 14vw, 200px)', letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--accent)', filter: 'drop-shadow(0 0 40px rgba(253,218,22,0.45))', animation: 'pulseGlow 3.5s ease-in-out infinite' }}>
               <CountUp to={30} suffix="%" duration={1400} />
             </div>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(42px, 5vw, 72px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)' }}>minimum USDT payback.</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(28px, 3.5vw, 48px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)' }}>minimum USDT payback.</span>
           </div>
-          <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 17, lineHeight: 1.6, color: 'var(--on-dark-2)', maxWidth: 680, margin: '48px auto 0' }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 16, lineHeight: 1.6, color: 'var(--on-dark-2)', maxWidth: 580, margin: '36px auto 0' }}>
             Yes, you read it right. We aim to provide a minimum of 30% of your total treasury back in USDT, while the rest is in tokens, depending on market conditions. Maximum could be anything up to 100%.
           </p>
         </div>
@@ -48,25 +49,38 @@ export default function TreasuryPage() {
 
       <Section bg="ink2">
         <div style={{ marginBottom: 56 }}>
-          <Eyebrow accentRule>03 · How it works</Eyebrow>
-          <h2 className="h2" style={{ margin: '18px 0 0' }}>Precision <em>mechanics.</em></h2>
+          <Eyebrow accentRule>03 · How it works & control</Eyebrow>
+          <h2 className="h2" style={{ margin: '18px 0 0' }}>Precision mechanics, <em>total flexibility.</em></h2>
         </div>
         <FeatureCards cols={3} items={[
-          { title: 'Passive Execution.',   body: 'Small passive limit orders. No aggressive selling, no market dumping.' },
-          { title: 'Aligned Incentives.',  body: 'Higher token values mean better outcomes for both parties.' },
-          { title: 'The Buffer Strategy.', body: 'Our algorithms adapt to live conditions. We sell more when prices surge, and deploy the buffer when prices dump.' },
-        ]} />
-      </Section>
-
-      <Section bg="ink">
-        <div style={{ marginBottom: 56 }}>
-          <Eyebrow accentRule>04 · You stay in control</Eyebrow>
-          <h2 className="h2" style={{ margin: '18px 0 0' }}>Total flexibility <em>& control.</em></h2>
-        </div>
-        <FeatureCards cols={2} items={[
+          { title: 'Passive Execution.',       body: 'Small passive limit orders. No aggressive selling, no market dumping.' },
+          { title: 'Aligned Incentives.',      body: 'Higher token values mean better outcomes for both parties.' },
+          { title: 'The Buffer Strategy.',     body: 'Our algorithms adapt to live conditions. We sell more when prices surge, and deploy the buffer when prices dump.' },
           { title: 'On-Demand Liquidity.',     body: 'Ask for a payout anytime you want to meet project needs.' },
           { title: 'Verifiable Transparency.', body: 'Detailed oversight with weekly & monthly performance reporting.' },
         ]} />
+
+        {/* Treasury strategy chart */}
+        <div style={{ marginTop: 64, position: 'relative', borderRadius: 8, overflow: 'hidden' }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.10) 0%, rgba(10,10,10,0.50) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          }} />
+          <Image
+            src="/assets/treasury-chart.svg"
+            alt="Treasury strategy chart — daily sales amount relative to 180-day reference"
+            width={1520}
+            height={680}
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              opacity: 0.93,
+            }}
+          />
+        </div>
       </Section>
 
       <ServiceFAQ items={[
