@@ -17,7 +17,7 @@ const timeline = [
 const principals = [
   { i: 'AS', n: 'Alexis Sirkia', r: 'Founder & Chairman', p: 'GSR · Yellow Group', img: '/assets/team/alexis.jpg' },
   { i: 'DM', n: 'Diego Martin', r: 'CEO', p: 'Renault Group', img: '/assets/team/diego.png' },
-  { i: 'LR', n: 'Laurian Russo', r: 'Head of Technology & Trading', p: 'GSR · Laser Digital (Nomura)', img: null },
+  { i: 'LR', n: 'Laurian Russo', r: 'Head of Technology & Trading', p: 'GSR · Laser Digital (Nomura)', img: '/assets/team/laurian.jpg' },
   { i: 'BM', n: 'Bakhtiyar Mammadov', r: 'CFO', p: 'PwC', img: '/assets/team/bakhtiyar.png' },
 ];
 

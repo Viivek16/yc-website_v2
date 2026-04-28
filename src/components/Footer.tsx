@@ -73,7 +73,7 @@ export function Footer() {
         {/* Link grid */}
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1.2fr 1.2fr 1.2fr 1.2fr', gap: 36, paddingBottom: 56, borderBottom: '1px solid var(--line-soft)' }}>
           <div>
-            <Image src="/assets/logo-dark-bg.png" alt="Yellow Capital" width={160} height={37} style={{ height: 37, width: 'auto', marginBottom: 18 }} />
+            <Image src="/assets/logo-dark-bg.png" alt="Yellow Capital" width={200} height={44} style={{ height: 44, width: 'auto', marginBottom: 18 }} />
             <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 13.5, lineHeight: 1.55, color: 'var(--on-dark-2)', maxWidth: 300, margin: '0 0 18px' }}>
               A Yellow Group company. Institutional-grade liquidity, treasury, and venture across digital assets since 2018.
             </p>

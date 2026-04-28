@@ -103,7 +103,7 @@ export function Nav() {
       >
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Image src="/assets/logo-dark-bg.png" alt="Yellow Capital" width={160} height={34} style={{ height: 34, width: 'auto', display: 'block' }} priority />
+          <Image src="/assets/logo-dark-bg.png" alt="Yellow Capital" width={200} height={44} style={{ height: 44, width: 'auto', display: 'block' }} priority />
         </Link>
 
         {/* Center nav */}
@@ -145,10 +145,10 @@ export function Nav() {
                   top: 'calc(100% + 14px)',
                   left: -24,
                   width: 440,
-                  background: 'rgba(10,10,10,0.86)',
+                  background: 'rgba(8,8,8,0.97)',
                   backdropFilter: 'blur(24px)',
                   WebkitBackdropFilter: 'blur(24px)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.12)',
                   borderRadius: 4,
                   boxShadow: 'var(--sh-lg)',
                   padding: 8,
