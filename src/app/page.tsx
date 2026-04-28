@@ -6,6 +6,7 @@ import { OrderBookExhibit } from '@/components/home/OrderBookExhibit';
 import { HomeEcosystem }    from '@/components/home/HomeEcosystem';
 import { HomePillars }      from '@/components/home/HomePillars';
 import { Captain }          from '@/components/home/Captain';
+import { GlobalPresence }   from '@/components/home/GlobalPresence';
 import { PreFooter }        from '@/components/PreFooter';
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
       <HomeEcosystem />
       <HomePillars />
       <Captain />
+      <GlobalPresence />
       <PreFooter
         headline='Read first,<br /><em>Engage second.</em>'
         subhead="A short note about who you are, what book you run, and what you need. We read every one."
