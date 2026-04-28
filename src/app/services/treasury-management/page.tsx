@@ -32,20 +32,27 @@ export default function TreasuryPage() {
       {/* 30% showcase */}
       <section style={{ background: 'var(--ink)', color: 'var(--on-dark)', padding: '100px 40px', position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--line-soft)' }}>
         <div style={{ position: 'absolute', left: '50%', top: '50%', width: 560, height: 560, transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(253,218,22,0.16), transparent 62%)', filter: 'blur(40px)', pointerEvents: 'none', animation: 'pulseGlow 5s ease-in-out infinite' }} />
-        <div style={{ maxWidth: 860, margin: '0 auto', position: 'relative', textAlign: 'center' }}>
-          <Eyebrow accentRule>02 · The Yellow model</Eyebrow>
-          <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(28px, 3.5vw, 46px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)', display: 'block', textAlign: 'center', width: '100%' }}>
-              We guarantee a minimum
-            </span>
-            <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(96px, 13vw, 190px)', letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--accent)', filter: 'drop-shadow(0 0 40px rgba(253,218,22,0.45))', animation: 'pulseGlow 3.5s ease-in-out infinite', textAlign: 'center', width: '100%', display: 'block' }}>
-              <CountUp to={30} suffix="%" duration={1400} />
-            </div>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(28px, 3.5vw, 46px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)', display: 'block', textAlign: 'center', width: '100%' }}>
-              USDT payback on your treasury.
-            </span>
+
+        {/* Eyebrow — left-aligned (inline to avoid Eyebrow's display:flex left-anchoring the centred block) */}
+        <div style={{ maxWidth: 1360, margin: '0 auto', position: 'relative', marginBottom: 32 }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--on-dark-3)', display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ width: 24, height: 1, background: 'var(--accent)', display: 'inline-block', flexShrink: 0 }} />
+            02 · The Yellow model
           </div>
-          <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 16, lineHeight: 1.6, color: 'var(--on-dark-2)', maxWidth: 560, margin: '36px auto 0', textAlign: 'center' }}>
+        </div>
+
+        {/* Centred 30% block — full viewport width, no maxWidth constraint */}
+        <div style={{ width: '100%', textAlign: 'center', position: 'relative' }}>
+          <p style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(26px, 3.2vw, 44px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)', margin: '0 0 4px' }}>
+            We guarantee a minimum
+          </p>
+          <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(96px, 13vw, 190px)', letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--accent)', filter: 'drop-shadow(0 0 40px rgba(253,218,22,0.45))', animation: 'pulseGlow 3.5s ease-in-out infinite', margin: '0 0 4px' }}>
+            <CountUp to={30} suffix="%" duration={1400} />
+          </p>
+          <p style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(26px, 3.2vw, 44px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)', margin: '0 0 32px' }}>
+            USDT payback on your treasury.
+          </p>
+          <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 16, lineHeight: 1.6, color: 'var(--on-dark-2)', maxWidth: 560, margin: '0 auto' }}>
             We aim to provide a minimum of 30% of your total treasury back in USDT, while the rest is in tokens, depending on market conditions. Maximum could be anything up to 100%.
           </p>
         </div>
