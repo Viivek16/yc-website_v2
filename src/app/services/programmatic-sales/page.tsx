@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { ServiceHero }  from '@/components/services/ServiceHero';
 import { FeatureCards } from '@/components/services/FeatureCards';
 import { Section, Eyebrow, GlassCard } from '@/components/shared';
 import { PreFooter }    from '@/components/PreFooter';
+import { ProgrammaticSalesChart } from '@/components/charts/ProgrammaticSalesChart';
 
 export default function ProgrammaticPage() {
   return (
@@ -37,32 +37,13 @@ export default function ProgrammaticPage() {
           { title: 'Volatility-aware scheduling.',  body: 'We sell more into strength and pull back into weakness. The schedule responds to live market conditions, never the other way round.' },
           { title: 'Deep-liquidity venue routing.', body: 'Orders are routed to the venues that can absorb them cleanly. Thin books are avoided, not exploited.' },
           { title: 'Concealed footprint.',          body: 'Every slice of the sale is sized to disappear into organic flow. The market sees activity, not a seller.' },
-          { title: 'Live dashboard.',              body: 'Follow the program in real time. Quantities sold, average fill, slippage vs. benchmark.' },
+          { title: 'Live dashboard.',               body: 'Follow the program in real time. Quantities sold, average fill, slippage vs. benchmark.' },
           { title: 'Pause, resume, or reallocate.', body: 'The program is yours. Change the target size, the timeframe, or the venue mix at any point.' },
+          { title: 'Benchmark reporting.',          body: 'Weekly reports formatted to VWAP and TWAP benchmarks. Every fill is attributable and verifiable.' },
         ]} />
 
-        {/* Sales strategy chart */}
-        <div style={{ marginTop: 64, position: 'relative', borderRadius: 8, overflow: 'hidden' }}>
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.18) 0%, rgba(10,10,10,0.55) 100%)',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }} />
-          <Image
-            src="/assets/programmatic-sales-chart.png"
-            alt="Daily sales amount increases as rate over 180 day reference increases"
-            width={1520}
-            height={600}
-            style={{
-              width: '100%',
-              height: 'auto',
-              display: 'block',
-              mixBlendMode: 'luminosity',
-              opacity: 0.92,
-            }}
-          />
-        </div>
+        {/* Interactive programmatic sales chart */}
+        <ProgrammaticSalesChart />
       </Section>
 
       <PreFooter headline='Plan a <em>programmatic sale.</em>' subhead="Share the allocation size, the target timeframe, and the constraints. We'll return a draft schedule within 48 hours." primary="Plan a sale" ghost="All services" ghostTo="/" />
