@@ -3,32 +3,31 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
 
-const ORBITS = [
-  { id: 'pro', label: 'Yellow.pro',  desc: 'Trading infrastructure & APIs.', r: 28, speed: 0.18, phase: 0,   color: '#fdda16' },
-  { id: 'com', label: 'Yellow.com',  desc: 'Editorial reach & research.',    r: 36, speed: 0.13, phase: 1.6, color: '#ffb100' },
-  { id: 'org', label: 'Yellow.org',  desc: 'Open-protocol clearing layer.',  r: 44, speed: 0.09, phase: 3.4, color: '#fdda16' },
-  { id: 'ow',  label: 'Openware',    desc: 'Exchange engine since 2013.',    r: 38, speed: 0.11, phase: 5.0, color: '#e9e6df' },
+// Four child entities of Yellow Group, at fixed angles (degrees, 0=right 90=down)
+const NODES = [
+  { id: 'network', label: 'Yellow Network', desc: 'Open-protocol P2P clearing layer.',  angle: -50, dist: 36, color: '#fdda16', phase: 0   },
+  { id: 'capital', label: 'Yellow Capital', desc: 'Liquidity, treasury & venture.',     angle:  40, dist: 38, color: '#fdda16', phase: 1.6 },
+  { id: 'media',   label: 'Yellow Media',   desc: 'Editorial reach & research.',        angle: 130, dist: 36, color: '#c8bc6a', phase: 3.2 },
+  { id: 'pro',     label: 'Yellow Pro',     desc: 'Professional trading platform.',     angle:-130, dist: 37, color: '#c8bc6a', phase: 4.8 },
 ];
 
-const CAP = { id: 'cap', label: 'Yellow Capital', desc: 'Liquidity, treasury, venture.', x: 50, y: 50 };
+const GROUP = { id: 'group', label: 'Yellow Group', desc: 'Five entities. One vision.' };
 
 export function EcosystemConstellation() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const inView  = useInView(wrapRef, { once: true, margin: '0px 0px -10% 0px' });
 
-  const [t,       setT]       = useState(0);
-  const [paused,  setPaused]  = useState(false);
-  const [active,  setActive]  = useState('cap');
-  const [mouse,   setMouse]   = useState({ x: 0, y: 0 });
+  const [t,     setT]     = useState(0);
+  const [active, setActive] = useState('group');
+  const [mouse,  setMouse]  = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (paused) return;
     let raf: number;
     const start = performance.now();
     const tick = (now: number) => { setT((now - start) / 1000); raf = requestAnimationFrame(tick); };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [paused]);
+  }, []);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = wrapRef.current?.getBoundingClientRect();
@@ -38,107 +37,121 @@ export function EcosystemConstellation() {
     setMouse({ x: Math.max(-1, Math.min(1, x)), y: Math.max(-1, Math.min(1, y)) });
   };
 
-  const positions = ORBITS.map(o => {
-    const a = o.phase + t * o.speed;
-    return { ...o, x: 50 + Math.cos(a) * o.r, y: 50 + Math.sin(a) * o.r * 0.7, a };
+  // Fixed positions with gentle independent bob
+  const positions = NODES.map(n => {
+    const rad = (n.angle * Math.PI) / 180;
+    const bob = Math.sin(t * 0.55 + n.phase) * 1.3;
+    return { ...n, x: 50 + Math.cos(rad) * n.dist, y: 50 + Math.sin(rad) * n.dist + bob };
   });
 
-  const all = [CAP, ...positions];
-  const sel = all.find(n => n.id === active) || CAP;
+  const all: Array<{ id: string; label: string; desc: string }> = [GROUP, ...positions];
+  const sel = all.find(n => n.id === active) ?? GROUP;
   const px = mouse.x * 4, py = mouse.y * 4;
 
   return (
     <div
       ref={wrapRef}
       onMouseMove={onMove}
-      onMouseEnter={() => setPaused(false)}
-      onMouseLeave={() => { setMouse({ x: 0, y: 0 }); }}
+      onMouseLeave={() => setMouse({ x: 0, y: 0 })}
       style={{ position: 'relative', aspectRatio: '1 / 1', width: '100%', maxWidth: 540, margin: '0 auto', cursor: 'crosshair' }}
     >
       <svg viewBox="0 0 100 100" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', transform: `translate(${px * 0.3}px, ${py * 0.3}px)`, transition: 'transform 600ms cubic-bezier(0.16,1,0.3,1)' }}>
         <defs>
-          <radialGradient id="cg-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stopColor="#fdda16" stopOpacity="0.35" />
-            <stop offset="60%"  stopColor="#fdda16" stopOpacity="0.05" />
+          <radialGradient id="eg-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#fdda16" stopOpacity="0.30" />
+            <stop offset="55%"  stopColor="#fdda16" stopOpacity="0.06" />
             <stop offset="100%" stopColor="#fdda16" stopOpacity="0" />
           </radialGradient>
-          <filter id="cg-blur" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.8" />
+          <filter id="eg-blur" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="1.2" />
           </filter>
         </defs>
 
-        {/* Orbit rings */}
-        {ORBITS.map((o, i) => (
-          <ellipse key={o.id} cx="50" cy="50" rx={o.r} ry={o.r * 0.7}
-            fill="none"
-            stroke={active === o.id ? 'rgba(253,218,22,0.45)' : 'rgba(255,255,255,0.08)'}
-            strokeWidth={active === o.id ? 0.18 : 0.1}
-            strokeDasharray="0.8 1.2"
-            style={{ transition: 'stroke 320ms, stroke-width 320ms', opacity: inView ? 1 : 0, transitionDelay: `${200 + i * 100}ms` }}
+        {/* Ambient center glow */}
+        <circle cx="50" cy="50" r="22" fill="url(#eg-glow)" />
+
+        {/* Animated beam lines — marching dashes signal data flowing outward */}
+        {positions.map((p, i) => (
+          <line key={'beam-' + p.id}
+            x1="50" y1="50" x2={p.x} y2={p.y}
+            stroke={active === p.id ? 'rgba(253,218,22,0.68)' : 'rgba(253,218,22,0.16)'}
+            strokeWidth={active === p.id ? 0.38 : 0.13}
+            strokeDasharray="1.8 1.5"
+            strokeDashoffset={-t * 9 + i * 3.5}
+            style={{ transition: 'stroke 240ms, stroke-width 240ms', opacity: inView ? 1 : 0 }}
           />
         ))}
 
-        <circle cx="50" cy="50" r="22" fill="url(#cg-glow)" />
+        {/* Signal pulse dots travelling from center to each node */}
+        {positions.map(p => {
+          const prog = ((t * 0.38 + p.phase * 0.08) % 1);
+          return (
+            <circle key={'sig-' + p.id}
+              cx={50 + (p.x - 50) * prog}
+              cy={50 + (p.y - 50) * prog}
+              r="0.55"
+              fill="#fdda16"
+              opacity={active === p.id ? 0.9 : 0.4}
+            />
+          );
+        })}
 
-        {/* Beams */}
+        {/* Node dots */}
         {positions.map(p => (
-          <line key={'b-' + p.id} x1="50" y1="50" x2={p.x} y2={p.y}
-            stroke="rgba(253,218,22,0.18)"
-            strokeWidth={active === p.id ? 0.3 : 0.08}
-            strokeDasharray={active === p.id ? '0' : '0.4 0.6'}
-            style={{ transition: 'stroke-width 240ms', opacity: inView ? 1 : 0 }}
-          />
-        ))}
-
-        {/* Planet dots */}
-        {positions.map(p => (
-          <g key={p.id} onMouseEnter={() => { setActive(p.id); setPaused(true); }} onMouseLeave={() => setPaused(false)} style={{ cursor: 'pointer' }}>
-            {active === p.id && <circle cx={p.x} cy={p.y} r="4.2" fill={p.color} opacity="0.18" filter="url(#cg-blur)" />}
-            <circle cx={p.x} cy={p.y} r={active === p.id ? 1.6 : 1.1} fill={p.color} style={{ transition: 'r 240ms' }} />
-            <circle cx={p.x} cy={p.y} r="3" fill="transparent" />
+          <g key={p.id}
+            onMouseEnter={() => setActive(p.id)}
+            onMouseLeave={() => setActive('group')}
+            style={{ cursor: 'pointer' }}
+          >
+            {active === p.id && (
+              <circle cx={p.x} cy={p.y} r="5.2" fill={p.color} opacity="0.16" filter="url(#eg-blur)" />
+            )}
+            <circle cx={p.x} cy={p.y} r={active === p.id ? 1.9 : 1.2} fill={p.color} style={{ transition: 'r 240ms' }} />
+            {/* invisible hit target */}
+            <circle cx={p.x} cy={p.y} r="4" fill="transparent" />
           </g>
         ))}
       </svg>
 
-      {/* Center node */}
+      {/* Center — Yellow Group (PARENT) */}
       <div
-        onMouseEnter={() => setActive('cap')}
+        onMouseEnter={() => setActive('group')}
         style={{
           position: 'absolute', left: '50%', top: '50%',
           transform: `translate(calc(-50% + ${px * 0.5}px), calc(-50% + ${py * 0.5}px))`,
-          padding: '16px 22px',
-          background: 'rgba(253,218,22,0.08)',
+          padding: '16px 26px',
+          background: 'rgba(253,218,22,0.09)',
           backdropFilter: 'blur(14px)',
-          border: `1px solid ${active === 'cap' ? 'rgba(253,218,22,0.7)' : 'rgba(253,218,22,0.4)'}`,
+          border: `1px solid ${active === 'group' ? 'rgba(253,218,22,0.82)' : 'rgba(253,218,22,0.4)'}`,
           borderRadius: 4,
-          fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.12em',
+          fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em',
           color: '#fff', textAlign: 'center', whiteSpace: 'nowrap',
-          boxShadow: '0 0 40px rgba(253,218,22,0.25)',
+          boxShadow: '0 0 52px rgba(253,218,22,0.28)',
           transition: 'border-color 240ms, transform 600ms cubic-bezier(0.16,1,0.3,1)',
         }}
       >
-        <div style={{ fontSize: 8.5, color: 'var(--on-dark-3)', letterSpacing: '0.22em', marginBottom: 4 }}>CORE</div>
-        Yellow Capital
+        <div style={{ fontSize: 8.5, color: '#fdda16', letterSpacing: '0.24em', marginBottom: 5, opacity: 0.85 }}>PARENT GROUP</div>
+        Yellow Group
       </div>
 
-      {/* Orbital labels */}
+      {/* Child-entity labels */}
       {positions.map(p => (
         <div key={p.id}
-          onMouseEnter={() => { setActive(p.id); setPaused(true); }}
-          onMouseLeave={() => setPaused(false)}
+          onMouseEnter={() => setActive(p.id)}
+          onMouseLeave={() => setActive('group')}
           style={{
             position: 'absolute', left: `${p.x}%`, top: `${p.y}%`,
             transform: `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`,
-            padding: active === p.id ? '8px 12px' : '6px 10px',
-            background: active === p.id ? 'rgba(20,19,19,0.95)' : 'rgba(20,19,19,0.7)',
+            padding: active === p.id ? '8px 13px' : '6px 10px',
+            background: active === p.id ? 'rgba(20,19,19,0.95)' : 'rgba(20,19,19,0.72)',
             backdropFilter: 'blur(8px)',
-            border: `1px solid ${active === p.id ? 'rgba(253,218,22,0.6)' : 'rgba(255,255,255,0.12)'}`,
+            border: `1px solid ${active === p.id ? 'rgba(253,218,22,0.65)' : 'rgba(255,255,255,0.12)'}`,
             borderRadius: 3,
-            fontFamily: 'var(--font-mono)', fontSize: active === p.id ? 10 : 9.5, letterSpacing: '0.12em',
+            fontFamily: 'var(--font-mono)', fontSize: active === p.id ? 10.5 : 9.5, letterSpacing: '0.1em',
             color: active === p.id ? '#fff' : 'var(--on-dark-2)',
             whiteSpace: 'nowrap', cursor: 'pointer',
-            boxShadow: active === p.id ? '0 0 24px rgba(253,218,22,0.3)' : 'none',
-            transition: 'background 240ms, border-color 240ms, color 240ms, padding 240ms',
+            boxShadow: active === p.id ? '0 0 28px rgba(253,218,22,0.28)' : 'none',
+            transition: 'all 240ms',
             opacity: inView ? 1 : 0,
             zIndex: active === p.id ? 4 : 3,
           }}
