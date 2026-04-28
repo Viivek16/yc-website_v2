@@ -11,7 +11,7 @@ export function HomeEcosystem() {
             Part of a <em>complete digital-asset ecosystem.</em>
           </h2>
           <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 16.5, lineHeight: 1.6, color: 'var(--on-dark-2)', maxWidth: 480, marginBottom: 28 }}>
-            Yellow Capital is one of five Yellow Group entities. Trading infrastructure, editorial reach, protocol layer, and token distribution — a single counterparty with every piece of the stack.
+            Yellow Group is the parent company behind Yellow Network, Yellow Capital, Yellow Pro, and Yellow Media — trading infrastructure, editorial reach, protocol layer, and token distribution from a single counterparty.
           </p>
           <BtnGhost href="/ecosystem">Explore Yellow Group</BtnGhost>
         </div>

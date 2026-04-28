@@ -46,7 +46,7 @@ export default function TreasuryPage() {
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(26px, 3.2vw, 44px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)', margin: '0 0 4px' }}>
             We guarantee a minimum
           </p>
-          <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(96px, 13vw, 190px)', letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--accent)', filter: 'drop-shadow(0 0 40px rgba(253,218,22,0.45))', animation: 'pulseGlow 3.5s ease-in-out infinite', margin: '0 0 4px' }}>
+          <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(96px, 13vw, 190px)', letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--accent)', animation: 'textGlow 3.5s ease-in-out infinite', margin: '0 0 4px' }}>
             <CountUp to={30} suffix="%" duration={1400} />
           </p>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(26px, 3.2vw, 44px)', letterSpacing: '-0.02em', color: 'var(--on-dark-2)', margin: '0 0 32px' }}>
