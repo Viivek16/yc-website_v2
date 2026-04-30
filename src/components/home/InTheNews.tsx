@@ -1,17 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Section, Eyebrow, Reveal } from '@/components/shared';
-
-type TagType = 'Article' | 'Press Release' | 'Partnership' | 'Commentary' | 'Video' | 'Event';
 
 interface NewsItem {
   pub: string;
-  tag: TagType;
+  tag: string;
   headline: string;
   date: string;
   url: string;
-  cta: 'Read' | 'Watch' | 'View';
+  bg: string;
+  accent: string;
+  w: number;
 }
 
 const ITEMS: NewsItem[] = [
@@ -21,7 +20,9 @@ const ITEMS: NewsItem[] = [
     headline: 'Yellow: A Clearing Network Unifying Fragmented Blockchains',
     date: 'Oct 2025',
     url: 'https://www.theblock.co/post/373848/yellow-a-clearing-network-unifying-fragmented-blockchains',
-    cta: 'Read',
+    bg: 'linear-gradient(145deg, #1e1b4b 0%, #312e81 60%, #4c1d95 100%)',
+    accent: '#a78bfa',
+    w: 400,
   },
   {
     pub: 'CoinDesk',
@@ -29,7 +30,9 @@ const ITEMS: NewsItem[] = [
     headline: 'Yellow Network — Official Infrastructure Sponsor · Consensus Hong Kong',
     date: 'Apr 2026',
     url: 'https://consensus-hongkong.coindesk.com/agenda/sponsor/-yellow',
-    cta: 'View',
+    bg: 'linear-gradient(145deg, #0c4a6e 0%, #0369a1 60%, #0284c7 100%)',
+    accent: '#38bdf8',
+    w: 320,
   },
   {
     pub: 'GlobeNewswire',
@@ -37,7 +40,9 @@ const ITEMS: NewsItem[] = [
     headline: 'Yellow and Unstoppable Domains Launch .yellow Web3 Domains',
     date: 'Jan 2026',
     url: 'https://www.globenewswire.com/news-release/2026/01/06/3213958/0/en/yellow-and-unstoppable-domains-launch-yellow-a-web3-domain-for-identity-connection-and-opportunity.html',
-    cta: 'Read',
+    bg: 'linear-gradient(145deg, #1e3a5f 0%, #1e40af 60%, #1d4ed8 100%)',
+    accent: '#60a5fa',
+    w: 360,
   },
   {
     pub: 'Chainwire',
@@ -45,7 +50,9 @@ const ITEMS: NewsItem[] = [
     headline: 'Yellow Capital Launches TradePoint to Streamline Token Distribution for Web3 Projects',
     date: 'Feb 2026',
     url: 'https://chainwire.org/2026/02/26/yellow-capital-launches-tradepoint-to-streamline-token-distribution-for-web3-projects/',
-    cta: 'Read',
+    bg: 'linear-gradient(145deg, #14532d 0%, #15803d 60%, #16a34a 100%)',
+    accent: '#4ade80',
+    w: 300,
   },
   {
     pub: 'Cointelegraph',
@@ -53,7 +60,9 @@ const ITEMS: NewsItem[] = [
     headline: 'Yellow Builders Alliance Announces First Major Partnership with Cointelegraph Accelerator',
     date: 'Mar 2026',
     url: 'https://www.reddit.com/r/defi/comments/1rwg4gs/yellow_builders_alliance_announces_first_major/',
-    cta: 'Read',
+    bg: 'linear-gradient(145deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%)',
+    accent: '#93c5fd',
+    w: 380,
   },
   {
     pub: 'Korea IT Times',
@@ -61,7 +70,9 @@ const ITEMS: NewsItem[] = [
     headline: 'DeFi Security at a Dead-End? — CEO Commentary',
     date: 'Apr 2026',
     url: 'https://www.koreaittimes.com/news/articleView.html?idxno=153419',
-    cta: 'Read',
+    bg: 'linear-gradient(145deg, #7f1d1d 0%, #b91c1c 60%, #dc2626 100%)',
+    accent: '#fca5a5',
+    w: 300,
   },
   {
     pub: 'XFounders',
@@ -69,7 +80,9 @@ const ITEMS: NewsItem[] = [
     headline: "What Crypto Founders Don't Know (But Should) — Diego Martin",
     date: 'Jan 2026',
     url: 'https://www.youtube.com/watch?v=JC1-nZvFqU0',
-    cta: 'Watch',
+    bg: 'linear-gradient(145deg, #431407 0%, #c2410c 60%, #ea580c 100%)',
+    accent: '#fb923c',
+    w: 360,
   },
   {
     pub: 'LABITCONF',
@@ -77,238 +90,426 @@ const ITEMS: NewsItem[] = [
     headline: 'How to Choose a Market Maker for Your Token Launch',
     date: 'Jan 2026',
     url: 'https://www.youtube.com/watch?v=HqM03mz7_OM',
-    cta: 'Watch',
+    bg: 'linear-gradient(145deg, #78350f 0%, #b45309 60%, #d97706 100%)',
+    accent: '#fbbf24',
+    w: 320,
   },
 ];
 
-const TICKER_PUBS = [...ITEMS.map(i => i.pub), ...ITEMS.map(i => i.pub)];
+const ALL_ITEMS: NewsItem[] = [...ITEMS, ...ITEMS];
 
-function NewsCard({ pub, tag, headline, date, url, cta, index }: NewsItem & { index: number }) {
-  const [hovered, setHovered] = useState(false);
+const H = 480;
+const GAP = 10;
+
+function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
+  const [hov, setHov] = useState(false);
   const isVideo = tag === 'Video';
 
   return (
-    <Reveal delay={index * 55}>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        width: w,
+        height: H,
+        flexShrink: 0,
+        borderRadius: 4,
+        overflow: 'hidden',
+        position: 'relative',
+        cursor: 'pointer',
+        textDecoration: 'none',
+        display: 'block',
+        filter: hov
+          ? 'grayscale(0) brightness(1) contrast(1.05)'
+          : 'grayscale(1) brightness(0.42)',
+        transform: hov ? 'scale(1.03)' : 'scale(1)',
+        transition:
+          'filter 600ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1)',
+      }}
+    >
+      {/* Gradient background */}
+      <div style={{ position: 'absolute', inset: 0, background: bg }} />
+
+      {/* Subtle grid lines */}
+      <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          textDecoration: 'none',
-          color: 'var(--on-dark)',
-          background: hovered ? 'rgba(28,27,25,0.95)' : 'rgba(10,10,10,0.5)',
-          backdropFilter: 'blur(12px)',
-          borderRadius: 4,
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderTop: `2px solid ${hovered ? 'var(--accent)' : 'rgba(255,255,255,0.05)'}`,
-          padding: '26px 26px 22px',
-          transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
-          boxShadow: hovered
-            ? '0 24px 56px -12px rgba(0,0,0,0.55), 0 0 0 1px rgba(253,218,22,0.07), inset 0 1px 0 rgba(255,255,255,0.04)'
-            : '0 2px 8px -2px rgba(0,0,0,0.25)',
-          transition: 'all 280ms cubic-bezier(0.16,1,0.3,1)',
-          cursor: 'pointer',
-          position: 'relative',
-          overflow: 'hidden',
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `linear-gradient(${accent}20 1px, transparent 1px), linear-gradient(90deg, ${accent}20 1px, transparent 1px)`,
+          backgroundSize: '48px 48px',
+        }}
+      />
+
+      {/* Diagonal stripe texture */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 20px,
+            ${accent}06 20px,
+            ${accent}06 21px
+          )`,
+        }}
+      />
+
+      {/* Large watermark pub name */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) rotate(-18deg)',
+          fontFamily: 'var(--font-display)',
+          fontWeight: 400,
+          fontSize: w > 340 ? 64 : 52,
+          letterSpacing: '-0.03em',
+          lineHeight: 1,
+          color: `${accent}1a`,
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none',
+          userSelect: 'none',
         }}
       >
-        {/* Radial glow behind top border */}
-        <div style={{
-          position: 'absolute',
-          top: -1, left: '5%', right: '5%',
-          height: 60,
-          background: 'radial-gradient(ellipse at top, rgba(253,218,22,0.22), transparent 65%)',
-          opacity: hovered ? 1 : 0,
-          transition: 'opacity 320ms',
-          pointerEvents: 'none',
-          filter: 'blur(4px)',
-        }} />
+        {pub}
+      </div>
 
+      {/* Radial accent glow center */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '30%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: w * 1.2,
+          height: H * 0.7,
+          background: `radial-gradient(ellipse, ${accent}28 0%, transparent 70%)`,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Bottom gradient overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.88) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: '24px 22px',
+        }}
+      >
         {/* Tag badge */}
-        <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{
+        <div
+          style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 9,
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            color: 'var(--accent)',
-            background: 'rgba(253,218,22,0.07)',
-            border: '1px solid rgba(253,218,22,0.15)',
+            color: accent,
+            background: `${accent}18`,
+            border: `1px solid ${accent}40`,
             borderRadius: 2,
             padding: '3px 8px',
-            lineHeight: 1.6,
-          }}>
-            {isVideo && <span style={{ marginRight: 4 }}>▶</span>}{tag}
-          </span>
+            display: 'inline-block',
+            marginBottom: 14,
+          }}
+        >
+          {isVideo && <span style={{ marginRight: 4 }}>▶</span>}
+          {tag}
         </div>
 
         {/* Publication name */}
-        <div style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 24,
-          fontWeight: 400,
-          letterSpacing: '-0.015em',
-          lineHeight: 1.1,
-          color: hovered ? '#fff' : 'var(--on-dark)',
-          marginBottom: 14,
-          transition: 'color 220ms',
-        }}>
+        <div
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 22,
+            fontWeight: 400,
+            color: '#fff',
+            lineHeight: 1.1,
+            marginBottom: 10,
+            letterSpacing: '-0.015em',
+          }}
+        >
           {pub}
         </div>
 
         {/* Animated rule */}
-        <div style={{
-          height: 1,
-          background: hovered ? 'var(--accent)' : 'var(--line-soft)',
-          marginBottom: 14,
-          width: hovered ? '100%' : 28,
-          transition: 'width 340ms cubic-bezier(0.16,1,0.3,1), background 220ms',
-        }} />
+        <div
+          style={{
+            height: 1,
+            background: accent,
+            marginBottom: 12,
+            width: 28,
+          }}
+        />
 
         {/* Headline */}
-        <p style={{
-          fontFamily: 'var(--font-ui)',
-          fontWeight: 300,
-          fontSize: 13.5,
-          lineHeight: 1.65,
-          color: hovered ? 'var(--on-dark)' : 'var(--on-dark-2)',
-          margin: '0 0 20px',
-          flex: 1,
-          transition: 'color 220ms',
-        }}>
+        <p
+          style={{
+            fontFamily: 'var(--font-ui)',
+            fontWeight: 300,
+            fontSize: 12.5,
+            lineHeight: 1.6,
+            color: 'rgba(255,255,255,0.72)',
+            margin: '0 0 18px',
+          }}
+        >
           {headline}
         </p>
 
         {/* Footer */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingTop: 14,
-          borderTop: '1px solid rgba(255,255,255,0.06)',
-        }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 10,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            color: 'var(--on-dark-3)',
-          }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingTop: 12,
+            borderTop: `1px solid ${accent}30`,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.38)',
+            }}
+          >
             {date}
           </span>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 10,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            color: hovered ? 'var(--accent)' : 'var(--on-dark-3)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            transition: 'color 220ms',
-          }}>
-            {cta}
-            <span style={{
-              display: 'inline-block',
-              transition: 'transform 240ms cubic-bezier(0.16,1,0.3,1)',
-              transform: hovered ? (isVideo ? 'scale(1.3)' : 'translateX(5px)') : 'none',
-            }}>
-              {isVideo ? '▶' : '↗'}
-            </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: accent,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 5,
+            }}
+          >
+            {isVideo ? 'Watch' : 'Read'}{' '}
+            <span>{isVideo ? '▶' : '↗'}</span>
           </span>
         </div>
-      </a>
-    </Reveal>
+      </div>
+
+      {/* Yellow top-border sweep */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 2,
+          background: '#fdda16',
+          transform: hov ? 'scaleX(1)' : 'scaleX(0)',
+          transformOrigin: 'left',
+          transition: 'transform 500ms cubic-bezier(0.16,1,0.3,1)',
+        }}
+      />
+
+      {/* Yellow glowing dot */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 14,
+          right: 14,
+          width: 7,
+          height: 7,
+          borderRadius: '50%',
+          background: '#fdda16',
+          boxShadow: hov ? '0 0 16px 4px rgba(253,218,22,0.55)' : 'none',
+          opacity: hov ? 1 : 0,
+          transition: 'all 400ms cubic-bezier(0.16,1,0.3,1)',
+        }}
+      />
+    </a>
   );
 }
 
 export function InTheNews() {
+  const [paused, setPaused] = useState(false);
+
   useEffect(() => {
-    if (document.getElementById('itn-kf')) return;
+    if (document.getElementById('itn-kf2')) return;
     const s = document.createElement('style');
-    s.id = 'itn-kf';
-    s.textContent = '@keyframes itnScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }';
+    s.id = 'itn-kf2';
+    s.textContent =
+      '@keyframes itnScroll2 { from { transform: translateX(0); } to { transform: translateX(-50%); } }';
     document.head.appendChild(s);
-    return () => { s.remove(); };
+    return () => {
+      s.remove();
+    };
   }, []);
 
   return (
-    <Section bg="ink2">
-      {/* Ambient glow */}
-      <div style={{
-        position: 'absolute',
-        top: -120, right: -80,
-        width: 700, height: 700,
-        background: 'radial-gradient(circle, rgba(253,218,22,0.05), transparent 60%)',
-        pointerEvents: 'none',
-      }} />
+    <section
+      style={{
+        background: '#141413',
+        color: 'var(--on-dark)',
+        paddingTop: 120,
+        overflow: 'hidden',
+        borderBottom: '1px solid var(--line-soft)',
+        position: 'relative',
+      }}
+    >
+      {/* Ambient yellow glow */}
+      <div
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '60%',
+          width: 1200,
+          height: 400,
+          transform: 'translate(-50%, -50%)',
+          background:
+            'radial-gradient(ellipse, rgba(253,218,22,0.04), transparent 65%)',
+          filter: 'blur(60px)',
+          pointerEvents: 'none',
+        }}
+      />
 
       {/* Section header */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 32, alignItems: 'end', marginBottom: 56 }}>
-        <div>
-          <Eyebrow accentRule>03 · In the News</Eyebrow>
-          <h2 className="h2" style={{ margin: '18px 0 20px' }}>
-            The market <em>is watching.</em>
-          </h2>
-          <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 16.5, lineHeight: 1.6, color: 'var(--on-dark-2)', maxWidth: 540, margin: 0 }}>
-            Yellow Capital and Yellow Group featured across leading publications, media outlets, and global conferences.
-          </p>
+      <div
+        style={{
+          maxWidth: 1360,
+          margin: '0 auto',
+          padding: '0 40px 56px',
+          position: 'relative',
+        }}
+      >
+        {/* Eyebrow */}
+        <div
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: 'var(--on-dark-3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+          }}
+        >
+          <span
+            style={{
+              width: 24,
+              height: 1,
+              background: 'var(--accent)',
+              display: 'inline-block',
+            }}
+          />
+          03 · In the News
         </div>
-        <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: 56, fontWeight: 400, letterSpacing: '-0.03em', lineHeight: 1, color: 'var(--on-dark)' }}>
-            {ITEMS.length}
-          </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--on-dark-3)', marginTop: 6 }}>
-            Features
-          </div>
-        </div>
+
+        {/* H2 */}
+        <h2
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 400,
+            fontSize: 'clamp(40px, 5vw, 68px)',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.04,
+            margin: '18px 0 20px',
+            color: 'var(--on-dark)',
+          }}
+        >
+          In the News
+        </h2>
+
+        {/* Subtitle */}
+        <p
+          style={{
+            fontFamily: 'var(--font-ui)',
+            fontWeight: 300,
+            fontSize: 16,
+            lineHeight: 1.65,
+            color: 'var(--on-dark-2)',
+            maxWidth: 580,
+            margin: 0,
+          }}
+        >
+          As Seen — Yellow Capital and Yellow Group featured across leading
+          publications, media outlets, and global conferences.
+        </p>
       </div>
 
-      {/* Scrolling ticker */}
-      <div style={{ overflow: 'hidden', marginBottom: 56, position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 100, zIndex: 2, background: 'linear-gradient(to right, var(--ink-2), transparent)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 100, zIndex: 2, background: 'linear-gradient(to left, var(--ink-2), transparent)', pointerEvents: 'none' }} />
+      {/* Auto-scrolling news strip */}
+      <div
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        style={{
+          width: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+          paddingBottom: 48,
+        }}
+      >
+        {/* Left fade */}
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 120,
+            zIndex: 4,
+            background: 'linear-gradient(to right, #141413 0%, transparent 100%)',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Right fade */}
+        <div
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: 120,
+            zIndex: 4,
+            background: 'linear-gradient(to left, #141413 0%, transparent 100%)',
+            pointerEvents: 'none',
+          }}
+        />
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          width: 'max-content',
-          animation: 'itnScroll 22s linear infinite',
-          borderTop: '1px solid var(--line-soft)',
-          borderBottom: '1px solid var(--line-soft)',
-          padding: '14px 0',
-        }}>
-          {TICKER_PUBS.map((name, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-              <span style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(20px, 2.4vw, 32px)',
-                fontWeight: 400,
-                letterSpacing: '-0.018em',
-                color: i % 2 === 0 ? 'var(--on-dark-3)' : 'rgba(233,230,223,0.18)',
-                fontStyle: i % 3 === 0 ? 'italic' : 'normal',
-                padding: '0 28px',
-                whiteSpace: 'nowrap',
-              }}>
-                {name}
-              </span>
-              <span style={{ color: 'var(--accent)', fontSize: 8, lineHeight: 1, flexShrink: 0, opacity: 0.6 }}>◆</span>
-            </div>
+        {/* Scrolling track */}
+        <div
+          style={{
+            display: 'flex',
+            gap: GAP,
+            alignItems: 'flex-start',
+            width: 'max-content',
+            height: H,
+            paddingLeft: 40,
+            paddingRight: 40,
+            animation: 'itnScroll2 60s linear infinite',
+            animationPlayState: paused ? 'paused' : 'running',
+          }}
+        >
+          {ALL_ITEMS.map((item, i) => (
+            <NewsCard key={i} {...item} />
           ))}
         </div>
       </div>
-
-      {/* Card grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-        {ITEMS.map((item, i) => (
-          <NewsCard key={i} {...item} index={i} />
-        ))}
-      </div>
-    </Section>
+    </section>
   );
 }
