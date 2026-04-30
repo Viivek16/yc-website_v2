@@ -3,7 +3,7 @@ import { Section, Eyebrow, Chip, Reveal } from '@/components/shared';
 
 export function Captain() {
   return (
-    <Section bg="ink2">
+    <Section bg="ink">
       <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: 72, alignItems: 'center' }}>
         <Reveal>
           <div style={{ aspectRatio: '3 / 4', borderRadius: 4, background: 'linear-gradient(145deg, #1c1b19 0%, #141413 100%)', border: '1px solid rgba(255,255,255,0.08)', boxShadow: 'var(--sh-md)', position: 'relative', overflow: 'hidden' }}>
