@@ -1,9 +1,10 @@
-import { ServiceHero }   from '@/components/services/ServiceHero';
-import { FeatureCards }  from '@/components/services/FeatureCards';
-import { LedgerExhibit } from '@/components/services/LedgerExhibit';
-import { ServiceFAQ }    from '@/components/services/ServiceFAQ';
+import { ServiceHero }     from '@/components/services/ServiceHero';
+import { FeatureCards }    from '@/components/services/FeatureCards';
+import { LedgerExhibit }   from '@/components/services/LedgerExhibit';
+import { ServiceFAQ }      from '@/components/services/ServiceFAQ';
+import { OrderBookExhibit } from '@/components/home/OrderBookExhibit';
 import { Section, Eyebrow } from '@/components/shared';
-import { PreFooter }     from '@/components/PreFooter';
+import { PreFooter }       from '@/components/PreFooter';
 
 export default function MarketMakingPage() {
   return (
@@ -38,32 +39,30 @@ export default function MarketMakingPage() {
 
       <Section bg="ink2">
         <div style={{ marginBottom: 56 }}>
-          <Eyebrow accentRule>02 · Execution</Eyebrow>
+          <Eyebrow accentRule>02 · Execution & Engagement</Eyebrow>
           <h2 className="h2" style={{ margin: '18px 0 22px', maxWidth: 900 }}>Instead of a single, rigid strategy, we deploy <em>a full institutional framework</em> across top CEXs.</h2>
         </div>
         <FeatureCards cols={2} items={[
           { title: 'Dynamic Adjustment.', body: 'Our algorithms dynamically adapt to live conditions using volatility-aware spread logic and inventory-based risk management.' },
           { title: 'Balanced Depth.',     body: 'We strictly maintain balanced buy- and sell-side depth to incentivise organic trading activity and drastically reduce slippage.' },
         ]} />
-      </Section>
-
-      <Section bg="ink">
-        <div style={{ marginBottom: 40 }}>
-          <Eyebrow accentRule>03 · Weekly ledger</Eyebrow>
-          <h2 className="h2" style={{ margin: '18px 0 0' }}>Transparency, <em>line by line.</em></h2>
-        </div>
-        <LedgerExhibit />
-      </Section>
-
-      <Section bg="ink2">
-        <div style={{ marginBottom: 56 }}>
-          <Eyebrow accentRule>04 · Engagement</Eyebrow>
-          <h2 className="h2" style={{ margin: '18px 0 0' }}>Your liquidity goals <em>dictate our structure.</em></h2>
+        <div style={{ marginTop: 72, marginBottom: 40 }}>
+          <h2 className="h2" style={{ margin: 0 }}>Your liquidity goals <em>dictate our structure.</em></h2>
         </div>
         <FeatureCards cols={2} items={[
           { title: 'Define the Objective.',  body: 'Whether you need organic volume growth, market stability, post-listing performance, or treasury optimisation.' },
           { title: 'Transparent Models.',    body: 'We operate on transparent, flexible structures, offering Retainer, Liquidity Provision & Loan, or customised Hybrid models.' },
         ]} />
+      </Section>
+
+      <OrderBookExhibit />
+
+      <Section bg="ink2">
+        <div style={{ marginBottom: 40 }}>
+          <Eyebrow accentRule>04 · Weekly ledger</Eyebrow>
+          <h2 className="h2" style={{ margin: '18px 0 0' }}>Transparency, <em>line by line.</em></h2>
+        </div>
+        <LedgerExhibit />
       </Section>
 
       <ServiceFAQ items={[
