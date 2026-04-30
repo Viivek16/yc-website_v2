@@ -121,7 +121,7 @@ export function GlobalPresence() {
           display: 'flex', alignItems: 'center', gap: 12,
         }}>
           <span style={{ width: 24, height: 1, background: 'var(--accent)', display: 'inline-block' }} />
-          07 · Global Presence
+          04 · Global Presence
         </div>
 
         {/* H2 */}

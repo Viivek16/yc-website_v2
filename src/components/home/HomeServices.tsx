@@ -52,7 +52,7 @@ export function HomeServices() {
   return (
     <Section id="services" bg="ink">
       <div style={{ marginBottom: 72, maxWidth: 720 }}>
-        <Eyebrow accentRule>02 · Services</Eyebrow>
+        <Eyebrow accentRule>01 · Services</Eyebrow>
         <h2 className="h2" style={{ margin: '18px 0 22px' }}>Four capabilities. <em>One desk.</em></h2>
         <p style={{ fontFamily: 'var(--font-ui)', fontWeight: 300, fontSize: 17, lineHeight: 1.55, color: 'var(--on-dark-2)', margin: 0 }}>
           Each service is designed to operate independently, or compound together across a token&apos;s full lifecycle.

@@ -3,7 +3,7 @@ import { EcosystemConstellation } from './EcosystemConstellation';
 
 export function HomeEcosystem() {
   return (
-    <Section bg="ink">
+    <Section bg="ink2">
       <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: 64, alignItems: 'center' }}>
         <div>
           <Eyebrow accentRule>04 · Ecosystem</Eyebrow>

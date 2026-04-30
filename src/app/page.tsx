@@ -3,8 +3,6 @@ import { StatRail }         from '@/components/home/StatRail';
 import { StandardOfCare }   from '@/components/home/StandardOfCare';
 import { HomeServices }     from '@/components/home/HomeServices';
 import { OrderBookExhibit } from '@/components/home/OrderBookExhibit';
-import { HomeEcosystem }    from '@/components/home/HomeEcosystem';
-import { HomePillars }      from '@/components/home/HomePillars';
 import { Captain }          from '@/components/home/Captain';
 import { GlobalPresence }   from '@/components/home/GlobalPresence';
 import { PreFooter }        from '@/components/PreFooter';
@@ -14,11 +12,9 @@ export default function HomePage() {
     <>
       <Hero />
       <StatRail />
-      <StandardOfCare />
       <HomeServices />
+      <StandardOfCare />
       <OrderBookExhibit />
-      <HomeEcosystem />
-      <HomePillars />
       <Captain />
       <GlobalPresence />
       <PreFooter

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Section, Eyebrow, GlassCard, Reveal, Breadcrumb } from '@/components/shared';
 import { CoverageGlobe } from '@/components/shared';
+import { HomeEcosystem } from '@/components/home/HomeEcosystem';
 import { PreFooter } from '@/components/PreFooter';
 import { useState } from 'react';
 
@@ -139,6 +140,8 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+
+      <HomeEcosystem />
 
       <PreFooter headline="Speak with <em>a principal.</em>" subhead="Not a BD desk. Not a form response. A principal, within two business days." primary="Schedule consultation" ghost="Ecosystem" ghostTo="/ecosystem" />
     </>
