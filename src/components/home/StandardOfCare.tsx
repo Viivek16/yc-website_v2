@@ -12,7 +12,7 @@ export function StandardOfCare() {
     <Section bg="ink">
       <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: 48, marginBottom: 72 }}>
         <div>
-          <Eyebrow accentRule>01 · Standard of Care</Eyebrow>
+          <Eyebrow accentRule>02 · Standard of Care</Eyebrow>
           <h2 className="h2" style={{ margin: '18px 0 0' }}>
             The standard <em>a counterparty should expect.</em>
           </h2>
