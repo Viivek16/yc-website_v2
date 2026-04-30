@@ -10,7 +10,7 @@ const STATS = [
 
 export function OrderBookExhibit() {
   return (
-    <Section bg="ink2">
+    <Section bg="ink">
       <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: 64, alignItems: 'center' }}>
         <div>
           <Eyebrow accentRule>03 · On the desk</Eyebrow>
