@@ -59,7 +59,7 @@ const ITEMS: NewsItem[] = [
   },
   {
     pub: 'Cointelegraph',
-    pubLines: ['Coin', 'telegraph'],
+    pubLines: ['Cointelegraph'],
     tag: 'Partnership',
     isVideo: false,
     headline: 'Yellow Builders Alliance Announces First Major Partnership with Cointelegraph Accelerator',
@@ -162,8 +162,8 @@ function NewsCard({
         style={{
           position: 'absolute',
           inset: 0,
-          /* Muted warm gold — less neon than the raw brand #fdda16 */
-          background: '#e8c400',
+          /* Matches --cta (#ffb100) — same amber as the Schedule Consultation button */
+          background: 'var(--cta)',
           /* Inset vignette: centre bright, edges shadowed for depth */
           boxShadow:
             'inset 0 0 120px rgba(0,0,0,0.22), inset 0 -60px 80px rgba(0,0,0,0.12)',
@@ -212,10 +212,12 @@ function NewsCard({
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 400,
-              fontSize: multiLine ? 42 : 46,
+              // Scale down for long single-line names (e.g. "Cointelegraph")
+              fontSize: multiLine ? 42 : pubLines[0].length > 10 ? 34 : 46,
               letterSpacing: '-0.025em',
               lineHeight: 1,
-              color: logoColor,
+              // On hover: always black against the amber background for consistency
+              color: hov ? '#0a0a0a' : logoColor,
               textAlign: 'center',
               whiteSpace: 'nowrap',
             }}
