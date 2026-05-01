@@ -134,12 +134,16 @@ function NewsCard({
         width: CARD_W,
         height: H,
         flexShrink: 0,
-        borderRadius: 4,
+        borderRadius: 14,
         overflow: 'hidden',
         position: 'relative',
         cursor: 'pointer',
         textDecoration: 'none',
         display: 'block',
+        boxShadow: hov
+          ? '0 24px 64px -16px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.12)'
+          : '0 2px 8px rgba(0,0,0,0.28)',
+        transition: 'box-shadow 500ms cubic-bezier(0.16,1,0.3,1)',
       }}
     >
       {/* ── Background: dark (default) ── */}
@@ -158,7 +162,11 @@ function NewsCard({
         style={{
           position: 'absolute',
           inset: 0,
-          background: '#fdda16',
+          /* Muted warm gold — less neon than the raw brand #fdda16 */
+          background: '#e8c400',
+          /* Inset vignette: centre bright, edges shadowed for depth */
+          boxShadow:
+            'inset 0 0 120px rgba(0,0,0,0.22), inset 0 -60px 80px rgba(0,0,0,0.12)',
           opacity: hov ? 1 : 0,
           transition: 'opacity 500ms cubic-bezier(0.16,1,0.3,1)',
         }}
