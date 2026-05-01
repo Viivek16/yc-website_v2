@@ -2,108 +2,125 @@
 
 import { useState, useEffect } from 'react';
 
+// ── Data ───────────────────────────────────────────────────────────
 interface NewsItem {
   pub: string;
+  /** Lines to display as the publication "logo mark" */
+  pubLines: string[];
   tag: string;
+  isVideo: boolean;
   headline: string;
   date: string;
   url: string;
-  bg: string;
-  accent: string;
-  w: number;
+  /** Brand color shown on hover against the yellow card background */
+  logoColor: string;
 }
 
 const ITEMS: NewsItem[] = [
   {
     pub: 'The Block',
+    pubLines: ['The Block'],
     tag: 'Article',
+    isVideo: false,
     headline: 'Yellow: A Clearing Network Unifying Fragmented Blockchains',
     date: 'Oct 2025',
     url: 'https://www.theblock.co/post/373848/yellow-a-clearing-network-unifying-fragmented-blockchains',
-    bg: 'linear-gradient(145deg, #1e1b4b 0%, #312e81 60%, #4c1d95 100%)',
-    accent: '#a78bfa',
-    w: 400,
+    logoColor: '#0f0f0f',
   },
   {
     pub: 'CoinDesk',
+    pubLines: ['CoinDesk'],
     tag: 'Event',
+    isVideo: false,
     headline: 'Yellow Network — Official Infrastructure Sponsor · Consensus Hong Kong',
     date: 'Apr 2026',
     url: 'https://consensus-hongkong.coindesk.com/agenda/sponsor/-yellow',
-    bg: 'linear-gradient(145deg, #0c4a6e 0%, #0369a1 60%, #0284c7 100%)',
-    accent: '#38bdf8',
-    w: 320,
+    logoColor: '#CC4400',
   },
   {
     pub: 'GlobeNewswire',
+    pubLines: ['Globe', 'Newswire'],
     tag: 'Press Release',
+    isVideo: false,
     headline: 'Yellow and Unstoppable Domains Launch .yellow Web3 Domains',
     date: 'Jan 2026',
     url: 'https://www.globenewswire.com/news-release/2026/01/06/3213958/0/en/yellow-and-unstoppable-domains-launch-yellow-a-web3-domain-for-identity-connection-and-opportunity.html',
-    bg: 'linear-gradient(145deg, #1e3a5f 0%, #1e40af 60%, #1d4ed8 100%)',
-    accent: '#60a5fa',
-    w: 360,
+    logoColor: '#1565C0',
   },
   {
     pub: 'Chainwire',
+    pubLines: ['Chainwire'],
     tag: 'Press Release',
+    isVideo: false,
     headline: 'Yellow Capital Launches TradePoint to Streamline Token Distribution for Web3 Projects',
     date: 'Feb 2026',
     url: 'https://chainwire.org/2026/02/26/yellow-capital-launches-tradepoint-to-streamline-token-distribution-for-web3-projects/',
-    bg: 'linear-gradient(145deg, #14532d 0%, #15803d 60%, #16a34a 100%)',
-    accent: '#4ade80',
-    w: 300,
+    logoColor: '#1B5E20',
   },
   {
     pub: 'Cointelegraph',
+    pubLines: ['Coin', 'telegraph'],
     tag: 'Partnership',
+    isVideo: false,
     headline: 'Yellow Builders Alliance Announces First Major Partnership with Cointelegraph Accelerator',
     date: 'Mar 2026',
     url: 'https://www.reddit.com/r/defi/comments/1rwg4gs/yellow_builders_alliance_announces_first_major/',
-    bg: 'linear-gradient(145deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%)',
-    accent: '#93c5fd',
-    w: 380,
+    logoColor: '#1565C0',
   },
   {
     pub: 'Korea IT Times',
+    pubLines: ['Korea', 'IT Times'],
     tag: 'Commentary',
+    isVideo: false,
     headline: 'DeFi Security at a Dead-End? — CEO Commentary',
     date: 'Apr 2026',
     url: 'https://www.koreaittimes.com/news/articleView.html?idxno=153419',
-    bg: 'linear-gradient(145deg, #7f1d1d 0%, #b91c1c 60%, #dc2626 100%)',
-    accent: '#fca5a5',
-    w: 300,
+    logoColor: '#B71C1C',
   },
   {
     pub: 'XFounders',
+    pubLines: ['XFounders'],
     tag: 'Video',
+    isVideo: true,
     headline: "What Crypto Founders Don't Know (But Should) — Diego Martin",
     date: 'Jan 2026',
     url: 'https://www.youtube.com/watch?v=JC1-nZvFqU0',
-    bg: 'linear-gradient(145deg, #431407 0%, #c2410c 60%, #ea580c 100%)',
-    accent: '#fb923c',
-    w: 360,
+    logoColor: '#4527A0',
   },
   {
     pub: 'LABITCONF',
+    pubLines: ['LABIT', 'CONF'],
     tag: 'Video',
+    isVideo: true,
     headline: 'How to Choose a Market Maker for Your Token Launch',
     date: 'Jan 2026',
     url: 'https://www.youtube.com/watch?v=HqM03mz7_OM',
-    bg: 'linear-gradient(145deg, #78350f 0%, #b45309 60%, #d97706 100%)',
-    accent: '#fbbf24',
-    w: 320,
+    logoColor: '#BF360C',
   },
 ];
 
 const ALL_ITEMS: NewsItem[] = [...ITEMS, ...ITEMS];
 
+// ── Layout constants ───────────────────────────────────────────────
+const CARD_W = 340;
 const H = 480;
 const GAP = 10;
+/** Fraction of card height used for the logo area */
+const LOGO_RATIO = 0.55;
 
-function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
+// ── Card ───────────────────────────────────────────────────────────
+function NewsCard({
+  pub,
+  pubLines,
+  tag,
+  isVideo,
+  headline,
+  date,
+  url,
+  logoColor,
+}: NewsItem) {
   const [hov, setHov] = useState(false);
-  const isVideo = tag === 'Video';
+  const multiLine = pubLines.length > 1;
 
   return (
     <a
@@ -112,8 +129,9 @@ function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
       rel="noopener noreferrer"
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
+      aria-label={`${pub} — ${headline}`}
       style={{
-        width: w,
+        width: CARD_W,
         height: H,
         flexShrink: 0,
         borderRadius: 4,
@@ -122,165 +140,165 @@ function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
         cursor: 'pointer',
         textDecoration: 'none',
         display: 'block',
-        filter: hov
-          ? 'grayscale(0) brightness(1) contrast(1.05)'
-          : 'grayscale(1) brightness(0.42)',
-        transform: hov ? 'scale(1.03)' : 'scale(1)',
-        transition:
-          'filter 600ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1)',
       }}
     >
-      {/* Gradient background */}
-      <div style={{ position: 'absolute', inset: 0, background: bg }} />
-
-      {/* Subtle grid lines */}
+      {/* ── Background: dark (default) ── */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `linear-gradient(${accent}20 1px, transparent 1px), linear-gradient(90deg, ${accent}20 1px, transparent 1px)`,
+          background: 'linear-gradient(135deg, #1c1c1a 0%, #0a0a09 100%)',
+          opacity: hov ? 0 : 1,
+          transition: 'opacity 500ms cubic-bezier(0.16,1,0.3,1)',
+        }}
+      />
+
+      {/* ── Background: yellow (hover) ── */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: '#fdda16',
+          opacity: hov ? 1 : 0,
+          transition: 'opacity 500ms cubic-bezier(0.16,1,0.3,1)',
+        }}
+      />
+
+      {/* ── Subtle grid overlay ── */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),' +
+            'linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
           backgroundSize: '48px 48px',
-        }}
-      />
-
-      {/* Diagonal stripe texture */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 20px,
-            ${accent}06 20px,
-            ${accent}06 21px
-          )`,
-        }}
-      />
-
-      {/* Large watermark pub name */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) rotate(-18deg)',
-          fontFamily: 'var(--font-display)',
-          fontWeight: 400,
-          fontSize: w > 340 ? 64 : 52,
-          letterSpacing: '-0.03em',
-          lineHeight: 1,
-          color: `${accent}1a`,
-          whiteSpace: 'nowrap',
           pointerEvents: 'none',
-          userSelect: 'none',
+          opacity: hov ? 0 : 1,
+          transition: 'opacity 500ms',
+        }}
+      />
+
+      {/* ── Logo area (top 55 %) ── */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: `${LOGO_RATIO * 100}%`,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '24px 20px',
+          gap: 2,
+          // Only the logo gets the grayscale ↔ color treatment
+          filter: hov ? 'grayscale(0)' : 'grayscale(1)',
+          transition: 'filter 600ms cubic-bezier(0.16,1,0.3,1)',
         }}
       >
-        {pub}
+        {pubLines.map((line, i) => (
+          <div
+            key={i}
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 400,
+              fontSize: multiLine ? 42 : 46,
+              letterSpacing: '-0.025em',
+              lineHeight: 1,
+              color: logoColor,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {line}
+          </div>
+        ))}
       </div>
 
-      {/* Radial accent glow center */}
+      {/* ── Divider between logo and content ── */}
       <div
         style={{
           position: 'absolute',
-          top: '30%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: w * 1.2,
-          height: H * 0.7,
-          background: `radial-gradient(ellipse, ${accent}28 0%, transparent 70%)`,
-          pointerEvents: 'none',
+          top: `${LOGO_RATIO * 100}%`,
+          left: 22,
+          right: 22,
+          height: 1,
+          background: hov
+            ? 'rgba(0,0,0,0.14)'
+            : 'rgba(255,255,255,0.07)',
+          transition: 'background 400ms',
         }}
       />
 
-      {/* Bottom gradient overlay */}
+      {/* ── Content area (bottom 45 %) ── */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.88) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* Content */}
-      <div
-        style={{
-          position: 'absolute',
+          top: `${LOGO_RATIO * 100}%`,
           bottom: 0,
           left: 0,
           right: 0,
-          padding: '24px 22px',
+          padding: '18px 22px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
       >
-        {/* Tag badge */}
-        <div
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 9,
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            color: accent,
-            background: `${accent}18`,
-            border: `1px solid ${accent}40`,
-            borderRadius: 2,
-            padding: '3px 8px',
-            display: 'inline-block',
-            marginBottom: 14,
-          }}
-        >
-          {isVideo && <span style={{ marginRight: 4 }}>▶</span>}
-          {tag}
+        <div>
+          {/* Tag badge */}
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 9,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: hov ? '#0a0a0a' : '#fdda16',
+              background: hov
+                ? 'rgba(0,0,0,0.1)'
+                : 'rgba(253,218,22,0.1)',
+              border: hov
+                ? '1px solid rgba(0,0,0,0.22)'
+                : '1px solid rgba(253,218,22,0.3)',
+              borderRadius: 2,
+              padding: '3px 8px',
+              display: 'inline-block',
+              marginBottom: 10,
+              transition: 'color 350ms, background 350ms, border 350ms',
+            }}
+          >
+            {isVideo && <span style={{ marginRight: 4 }}>▶</span>}
+            {tag}
+          </div>
+
+          {/* Headline */}
+          <p
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontWeight: 300,
+              fontSize: 12.5,
+              lineHeight: 1.6,
+              color: hov ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.68)',
+              margin: 0,
+              transition: 'color 400ms',
+            }}
+          >
+            {headline}
+          </p>
         </div>
 
-        {/* Publication name */}
-        <div
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            fontWeight: 400,
-            color: '#fff',
-            lineHeight: 1.1,
-            marginBottom: 10,
-            letterSpacing: '-0.015em',
-          }}
-        >
-          {pub}
-        </div>
-
-        {/* Animated rule */}
-        <div
-          style={{
-            height: 1,
-            background: accent,
-            marginBottom: 12,
-            width: 28,
-          }}
-        />
-
-        {/* Headline */}
-        <p
-          style={{
-            fontFamily: 'var(--font-ui)',
-            fontWeight: 300,
-            fontSize: 12.5,
-            lineHeight: 1.6,
-            color: 'rgba(255,255,255,0.72)',
-            margin: '0 0 18px',
-          }}
-        >
-          {headline}
-        </p>
-
-        {/* Footer */}
+        {/* Footer row */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingTop: 12,
-            borderTop: `1px solid ${accent}30`,
+            paddingTop: 10,
+            borderTop: hov
+              ? '1px solid rgba(0,0,0,0.14)'
+              : '1px solid rgba(255,255,255,0.07)',
+            transition: 'border-color 400ms',
           }}
         >
           <span
@@ -289,7 +307,8 @@ function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
               fontSize: 10,
               letterSpacing: '0.16em',
               textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.38)',
+              color: hov ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.32)',
+              transition: 'color 400ms',
             }}
           >
             {date}
@@ -300,19 +319,32 @@ function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
               fontSize: 10,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: accent,
+              color: hov ? '#0a0a0a' : '#fdda16',
               display: 'flex',
               alignItems: 'center',
               gap: 5,
+              transition: 'color 400ms',
             }}
           >
-            {isVideo ? 'Watch' : 'Read'}{' '}
-            <span>{isVideo ? '▶' : '↗'}</span>
+            {isVideo ? 'Watch' : 'Read'}
+            <span
+              style={{
+                display: 'inline-block',
+                transition: 'transform 240ms cubic-bezier(0.16,1,0.3,1)',
+                transform: hov
+                  ? isVideo
+                    ? 'scale(1.3)'
+                    : 'translateX(4px)'
+                  : 'none',
+              }}
+            >
+              {isVideo ? '▶' : '↗'}
+            </span>
           </span>
         </div>
       </div>
 
-      {/* Yellow top-border sweep */}
+      {/* ── Top-border sweep (dark, only visible on yellow bg) ── */}
       <div
         style={{
           position: 'absolute',
@@ -320,32 +352,17 @@ function NewsCard({ pub, tag, headline, date, url, bg, accent, w }: NewsItem) {
           left: 0,
           right: 0,
           height: 2,
-          background: '#fdda16',
+          background: '#0a0a0a',
           transform: hov ? 'scaleX(1)' : 'scaleX(0)',
           transformOrigin: 'left',
           transition: 'transform 500ms cubic-bezier(0.16,1,0.3,1)',
-        }}
-      />
-
-      {/* Yellow glowing dot */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 14,
-          right: 14,
-          width: 7,
-          height: 7,
-          borderRadius: '50%',
-          background: '#fdda16',
-          boxShadow: hov ? '0 0 16px 4px rgba(253,218,22,0.55)' : 'none',
-          opacity: hov ? 1 : 0,
-          transition: 'all 400ms cubic-bezier(0.16,1,0.3,1)',
         }}
       />
     </a>
   );
 }
 
+// ── Section ────────────────────────────────────────────────────────
 export function InTheNews() {
   const [paused, setPaused] = useState(false);
 
@@ -377,7 +394,7 @@ export function InTheNews() {
         style={{
           position: 'absolute',
           left: '50%',
-          top: '60%',
+          top: '55%',
           width: 1200,
           height: 400,
           transform: 'translate(-50%, -50%)',
@@ -453,7 +470,7 @@ export function InTheNews() {
         </p>
       </div>
 
-      {/* Auto-scrolling news strip */}
+      {/* Auto-scrolling strip */}
       <div
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -473,7 +490,8 @@ export function InTheNews() {
             bottom: 0,
             width: 120,
             zIndex: 4,
-            background: 'linear-gradient(to right, #141413 0%, transparent 100%)',
+            background:
+              'linear-gradient(to right, #141413 0%, transparent 100%)',
             pointerEvents: 'none',
           }}
         />
@@ -486,7 +504,8 @@ export function InTheNews() {
             bottom: 0,
             width: 120,
             zIndex: 4,
-            background: 'linear-gradient(to left, #141413 0%, transparent 100%)',
+            background:
+              'linear-gradient(to left, #141413 0%, transparent 100%)',
             pointerEvents: 'none',
           }}
         />

@@ -103,7 +103,7 @@ export function Nav() {
       >
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Image src="/assets/logo-dark-bg.png" alt="Yellow Capital" width={244} height={70} style={{ height: 70, width: 'auto', display: 'block' }} priority />
+          <Image src="/assets/logo-dark-bg.png" alt="Yellow Capital" width={244} height={90} style={{ height: 90, width: 'auto', display: 'block' }} priority />
         </Link>
 
         {/* Center nav */}
