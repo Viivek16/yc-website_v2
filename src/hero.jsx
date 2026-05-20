@@ -219,7 +219,6 @@ const Hero = ({ go }) => {
       <div style={{ maxWidth: 1360, margin: '0 auto', padding: '72px 40px 96px', position: 'relative', zIndex: 3, minHeight: 'calc(100vh - 61px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 56, alignItems: 'center' }}>
           <div key={idx} style={{ animation: 'slideIn 900ms cubic-bezier(0.16,1,0.3,1)', maxWidth: 960 }}>
-            <Eyebrow accentRule>{slide.n} · {slide.section}</Eyebrow>
             <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(56px, 7vw, 108px)', letterSpacing: '-0.02em', lineHeight: 1.02, margin: '20px 0 24px' }}>
               {slide.headline.lines.map((l, i) => (
                 <React.Fragment key={i}>{l}<br /></React.Fragment>

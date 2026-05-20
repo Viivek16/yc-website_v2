@@ -34,8 +34,6 @@ export function Hero() {
         }}
       >
         <div style={{ maxWidth: 960 }}>
-          <Eyebrow accentRule>01 · Liquidity</Eyebrow>
-
           <h1 style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 400,
