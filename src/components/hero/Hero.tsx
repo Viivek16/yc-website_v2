@@ -44,9 +44,9 @@ export function Hero() {
             lineHeight: 1.02,
             margin: '20px 0 24px',
           }}>
+            <span>Accessing<br /></span>
             <span>Institutional<br /></span>
-            <span>Market Making<br /></span>
-            <em style={{ fontStyle: 'italic' }}>Aligned Liquidity.</em>
+            <em style={{ fontStyle: 'italic' }}>Liquidity.</em>
           </h1>
 
           <p style={{

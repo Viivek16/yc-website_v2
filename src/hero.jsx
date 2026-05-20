@@ -2,7 +2,7 @@
 const HERO_SLIDES = [
   {
     n: '01', section: 'Liquidity',
-    headline: { lines: ['Institutional', 'Market Making'], em: 'Aligned Liquidity.' },
+    headline: { lines: ['Accessing', 'Institutional'], em: 'Liquidity.' },
     sub: 'Compliance-first algorithmic market making across eleven major venues. We replace hidden price pressure and sudden volatility with a multi-layered liquidity framework engineered for sustainable growth.',
     ctas: [{ label: 'Schedule a Consultation', primary: true }, { label: 'Our Services', ghost: true, href: '#services' }],
   },
